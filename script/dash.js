@@ -1,6 +1,27 @@
-console.log('Hah! See Again!')
+console.log('Hah! See you Again!')
 
 let allIssues = [];
+
+//Search section
+document.getElementById('search-btn').addEventListener("click", () => {
+    const input = document.getElementById('search-issue');
+    const searchValue = input.value.trim().toLowerCase();
+    // console.log(searchValue)
+    if (searchValue === "") {
+        displayIssues(allIssues);
+        updateCount(allIssues);
+        return;
+    }
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+        .then(res => res.json())
+        .then(search => {
+            const allCard = search.data;
+            // console.log(allCard);
+            const filterCards = allCard.filter(issue => issue.title.toLowerCase().includes(searchValue));
+            displayIssues(filterCards);
+            updateCount(filterCards);
+        })
+})
 
 // fetch section
 const allBtn = () => {
@@ -23,9 +44,11 @@ const removeActive = () => {
 }
 
 const loadIssueDetails = (id) => {
+
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
         .then(res => res.json())
         .then(data => showModal(data.data))
+
 }
 
 
@@ -33,29 +56,39 @@ const loadIssueDetails = (id) => {
 // button section
 document.getElementById("all-btn").addEventListener("click", function () {
     removeActive();
+    loadingSpin(true);
     this.classList.add("btn-primary");
-    displayIssues(allIssues);
-    updateCount(allIssues);
+    setTimeout(() => {
+
+        displayIssues(allIssues);
+        updateCount(allIssues);
+    }, 300);
 });
 
 document.getElementById("open-btn").addEventListener("click", function () {
 
     removeActive();
+    loadingSpin(true);
     this.classList.add("btn-primary");
-    const openIssues = allIssues.filter(issue => issue.status === "open");
+    setTimeout(() => {
+        const openIssues = allIssues.filter(issue => issue.status === "open");
+        displayIssues(openIssues);
+        updateCount(openIssues);
+    }, 300)
 
-    displayIssues(openIssues);
-    updateCount(openIssues);
 });
 
 document.getElementById("close-btn").addEventListener("click", function () {
 
     removeActive();
+    loadingSpin(true);
     this.classList.add("btn-primary");
-    const closedIssues = allIssues.filter(issue => issue.status === "closed");
+    setTimeout(() => {
+        const closedIssues = allIssues.filter(issue => issue.status === "closed");
+        displayIssues(closedIssues);
+        updateCount(closedIssues);
+    }, 300)
 
-    displayIssues(closedIssues);
-    updateCount(closedIssues);
 });
 
 
@@ -71,7 +104,16 @@ document.getElementById("close-btn").addEventListener("click", function () {
 // "updatedAt": 
 
 
-
+// Added loading spinner
+const loadingSpin = (status) => {
+    if (status == true) {
+        document.getElementById('spinner').classList.remove('hidden')
+        document.getElementById('issues-container').classList.add('hidden')
+    } else {
+        document.getElementById('spinner').classList.add('hidden')
+        document.getElementById('issues-container').classList.remove('hidden')
+    }
+}
 // issue count
 const updateCount = (issues) => {
     const count = document.getElementById("issues-count");
@@ -218,12 +260,14 @@ const displayIssues = (issues) => {
         container.append(card);
 
     });
+    loadingSpin(false);
 
 }
 
 
 
 const showModal = (issue) => {
+
     const modal = document.getElementById('modal-content');
     const labelsMod = issue.labels.map(label => {
         const bg = getLabelColor(label);
@@ -274,6 +318,8 @@ ${labelsMod}
     document.getElementById("issue_modal").checked = true;
 
 }
+
+
 
 
 

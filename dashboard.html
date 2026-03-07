@@ -39,11 +39,13 @@
                 <h1 class="font-semibold text-lg">GitHub Issues Tracker</h1>
             </div>
 
+
+            <!-- Search Issue -->
             <div class="flex-none flex gap-3 items-center">
 
                 <input id="search-issue" type="text" placeholder="Search issues..."
                     class="w-64 border-none bg-gray-100  rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <button class="btn btn-squer"><i class="fa-brands fa-sistrix text-xl"></i></button>
+                <button id="search-btn" class="btn btn-squer"><i class="fa-brands fa-sistrix text-xl"></i></button>
                 <button class="btn btn-primary">
                     <i class="fa-solid fa-plus"></i>New Issue
                 </button>
@@ -91,6 +93,11 @@
 
 
                 </div>
+
+                <!-- loading section -->
+                <section id="spinner" class="flex justify-center items-center py-10 hidden">
+                    <span class="loading loading-infinity loading-xl"></span>
+                </section>
 
             </div>
         </section>
