@@ -56,9 +56,9 @@
         <section class="w-10/12 mx-auto ">
             <div class="mt-6 p-5 shadow-sm bg-white rounded-md">
                 <div class="tabs tabs-boxed w-fit gap-4">
-                    <button class=" px-9 btn btn-primary"> All</button>
-                    <button class=" px-9 btn">Open</button>
-                    <button class=" px-9 btn">Closed</button>
+                    <button id="all-btn" class=" px-9 btn btn-primary"> All</button>
+                    <button id="open-btn" class=" px-9 btn">Open</button>
+                    <button id="close-btn" class=" px-9 btn">Closed</button>
                 </div>
 
             </div>
@@ -71,9 +71,10 @@
                     <div class="flex gap-3">
                         <div class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full">
                             <img class=" flex text-center w-9" src="./assets/Aperture.png" alt="">
+
                         </div>
                         <div class=" flex flex-col text-start  justify-center">
-                            <h1 class="font-bold text-2xl ">50 Issues</h1>
+                            <h1 id="issues-count" class="font-bold text-2xl "></h1>
                             <p class="text-gray-500 text-sm mb-6">Track and manage your project issues</p>
                         </div>
                     </div>
@@ -87,7 +88,6 @@
 
                 <!-- Issue Cards here -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-5 " id="issues-container">
-
 
 
                 </div>
