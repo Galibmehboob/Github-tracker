@@ -221,29 +221,56 @@ const displayIssues = (issues) => {
 
 }
 
+
+
 const showModal = (issue) => {
     const modal = document.getElementById('modal-content');
+    const labelsMod = issue.labels.map(label => {
+        const bg = getLabelColor(label);
+        const bd = getLabelTag(label);
+        return `
+<span class="flex items-center gap-1 ${bg} text-white text-xs px-2 py-1 rounded-full">
+    ${bd} ${label.toUpperCase()}
+</span>
+`;
+    }).join("");
+
+    const priobdg = priorityBadge(issue.priority);
+    const prioTag = `
+                  <span class="text-xs ${priobdg} px-6 py-2 rounded-full font-semibold">
+                  ${issue.priority.toUpperCase()}
+                  </span>
+                  `;
+
+
     const statusColor =
         issue.status === "open"
             ? "bg-green-300"
             : "bg-purple-300";
     modal.innerHTML = `
-     <h1 class="text-lg font-bold mt-3">${issue.title}</h1>
-            <div class="flex gap-2  text-sm text-gray-400">
-                <p class=" px-2 flex items-center justify-center rounded-lg text-xs text-white ${statusColor}">${issue.status}</p>
-                *
-                <p>Opened by-${issue.author}</p>
-                *
-                <p>${new Date(issue.createdAt).toLocaleDateString()}</p>
-            </div>
-            <p>${issue.labels.join(",")}</p>
-            <p>${issue.description}</p>
-            <div class="flex justify-between m-5 p-5 bg-gray-300 rounded-lg">
-                <p>${issue.assignee || "Unassigned"}</p>
-                <p>${issue.priority}</p>
-            </div>
-    
-    `;
+<h1 class="text-lg font-bold mt-3">${issue.title}</h1>
+
+<div class="flex gap-2 text-sm text-gray-400">
+<p class="px-2 flex items-center justify-center rounded-lg text-xs text-white ${statusColor}">
+${issue.status}
+</p>
+*
+<p>Opened by-${issue.author}</p>
+*
+<p>${new Date(issue.createdAt).toLocaleDateString()}</p>
+</div>
+
+<div class="flex gap-2 mt-3">
+${labelsMod}
+</div>
+
+<p class="mt-3 text-gray-400">${issue.description}</p>
+
+<div class="flex justify-between m-5 p-5 shadow bg-gray-100 rounded-lg">
+<p>${issue.assignee || "Unassigned"}</p>
+<p>${prioTag}</p>
+</div>
+`;
     document.getElementById("issue_modal").checked = true;
 
 }
