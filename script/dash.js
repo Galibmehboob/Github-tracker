@@ -2,6 +2,7 @@ console.log('Hah! See Again!')
 
 let allIssues = [];
 
+// fetch section
 const allBtn = () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues"; //promise of response
     fetch(url)//promise of response
@@ -21,7 +22,15 @@ const removeActive = () => {
     });
 }
 
+const loadIssueDetails = (id) => {
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+        .then(res => res.json())
+        .then(data => showModal(data.data))
+}
 
+
+
+// button section
 document.getElementById("all-btn").addEventListener("click", function () {
     removeActive();
     this.classList.add("btn-primary");
@@ -49,20 +58,19 @@ document.getElementById("close-btn").addEventListener("click", function () {
     updateCount(closedIssues);
 });
 
-// "id": 1,
-// "title": "Fix navigation menu on mobile devices",
-// "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-// "status": "open",
-// "labels": [2 items],
-// "priority": "high",
-// "author": "john_doe",
-// "assignee": "jane_smith",
-// "createdAt": "2024-01-15T10:30:00Z",
-// "updatedAt": "2024-01-15T10:30:00Z"
 
-//  <i class="fa-solid fa-tag"></i>
-// <i class="fa-solid fa-bug"></i>
-// <i class="fa-regular fa-life-ring"></i>
+// "id": 
+// "title": 
+// "description": 
+// "status": 
+// "labels":
+// "priority":
+// "author": 
+// "assignee": 
+// "createdAt":
+// "updatedAt": 
+
+
 
 // issue count
 const updateCount = (issues) => {
@@ -88,9 +96,9 @@ const getLabelColor = (label) => {
     if (label === "help wanted")
         return "bg-orange-400";
 
-
-
 }
+
+// Functions
 const getLabelTag = (label) => {
 
     if (label === "bug")
@@ -157,7 +165,7 @@ const displayIssues = (issues) => {
         const card = document.createElement('div');
 
         card.innerHTML = `
-          <div class="card bg-base-100 h-full shadow rounded-md overflow-auto">
+          <div onclick="loadIssueDetails(${data.id})" class="card bg-base-100 h-full shadow rounded-md overflow-auto cursor-pointer">
     
     <div class="border-t-3 ${borderColor} rounded-full"></div>
 
@@ -210,6 +218,33 @@ const displayIssues = (issues) => {
         container.append(card);
 
     });
+
+}
+
+const showModal = (issue) => {
+    const modal = document.getElementById('modal-content');
+    const statusColor =
+        issue.status === "open"
+            ? "bg-green-300"
+            : "bg-purple-300";
+    modal.innerHTML = `
+     <h1 class="text-lg font-bold mt-3">${issue.title}</h1>
+            <div class="flex gap-2  text-sm text-gray-400">
+                <p class=" px-2 flex items-center justify-center rounded-lg text-xs text-white ${statusColor}">${issue.status}</p>
+                *
+                <p>Opened by-${issue.author}</p>
+                *
+                <p>${new Date(issue.createdAt).toLocaleDateString()}</p>
+            </div>
+            <p>${issue.labels.join(",")}</p>
+            <p>${issue.description}</p>
+            <div class="flex justify-between m-5 p-5 bg-gray-300 rounded-lg">
+                <p>${issue.assignee || "Unassigned"}</p>
+                <p>${issue.priority}</p>
+            </div>
+    
+    `;
+    document.getElementById("issue_modal").checked = true;
 
 }
 
