@@ -2,6 +2,25 @@ console.log('Hah! See you Again!')
 
 let allIssues = [];
 
+const searchBtn = document.getElementById("search-btn");
+const searchInput = document.getElementById("search-issue");
+
+searchBtn.addEventListener("click", () => {
+
+    if (window.innerWidth < 768) {
+
+        if (searchInput.classList.contains("hidden")) {
+            searchInput.classList.remove("hidden");
+            searchInput.classList.add("block");
+            searchInput.focus();
+        } else {
+            searchInput.classList.add("hidden");
+        }
+
+    }
+
+});
+
 //Search section
 document.getElementById('search-btn').addEventListener("click", () => {
     const input = document.getElementById('search-issue');

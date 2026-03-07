@@ -32,23 +32,35 @@
 
     <main class="bg-base-200 min-h-screen">
         <!-- Navbar -->
-        <div class="navbar bg-base-100 shadow-sm px-6 sticky top-0 z-10">
+        <div class="navbar bg-base-100 shadow-sm px-4 sticky top-0 z-10">
 
+            <!-- Logo -->
             <div class="flex-1 flex items-center gap-2">
                 <img src="./assets/github-logo.png" class="w-6">
-                <h1 class="font-semibold text-lg">GitHub Issues Tracker</h1>
+                <h1 class="font-semibold text-lg hidden md:block">
+                    GitHub Issues Tracker
+                </h1>
             </div>
 
 
-            <!-- Search Issue -->
-            <div class="flex-none flex gap-3 items-center">
+            <!-- Right Side -->
+            <div class="flex items-center gap-2">
 
+                <!-- Search input (hidden on mobile) -->
                 <input id="search-issue" type="text" placeholder="Search issues..."
-                    class="w-64 border-none bg-gray-100  rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <button id="search-btn" class="btn btn-squer"><i class="fa-brands fa-sistrix text-xl"></i></button>
-                <button class="btn btn-primary">
-                    <i class="fa-solid fa-plus"></i>New Issue
+                    class="hidden md:block w-64 border-none bg-gray-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                <!-- Search button -->
+                <button id="search-btn" class="btn btn-square">
+                    <i class="fa-brands fa-sistrix text-xl"></i>
                 </button>
+
+                <!-- New Issue -->
+                <button class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i>
+                    <span class="hidden md:inline">New Issue</span>
+                </button>
+
             </div>
 
         </div>
@@ -56,15 +68,25 @@
 
         <!-- Filter Tabs -->
         <section class="w-10/12 mx-auto ">
-            <div class="mt-6 p-5 shadow-sm bg-white rounded-md">
-                <div class="tabs tabs-boxed w-fit gap-4">
-                    <button id="all-btn" class=" px-9 btn btn-primary"> All</button>
-                    <button id="open-btn" class=" px-9 btn">Open</button>
-                    <button id="close-btn" class=" px-9 btn">Closed</button>
+            <div class="mt-6 p-4 sm:p-5 shadow-sm bg-white rounded-md">
+
+                <div class="tabs tabs-boxed w-full sm:w-fit gap-2 sm:gap-4 flex justify-between sm:justify-start">
+
+                    <button id="all-btn" class="btn btn-primary flex-1 sm:flex-none text-sm sm:text-base px-3 sm:px-9">
+                        All
+                    </button>
+
+                    <button id="open-btn" class="btn flex-1 sm:flex-none text-sm sm:text-base px-3 sm:px-9">
+                        Open
+                    </button>
+
+                    <button id="close-btn" class="btn flex-1 sm:flex-none text-sm sm:text-base px-3 sm:px-9">
+                        Closed
+                    </button>
+
                 </div>
 
             </div>
-
 
             <!-- Issues Container -->
 
