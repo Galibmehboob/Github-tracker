@@ -258,7 +258,7 @@ const displayIssues = (issues) => {
 
     </div>
 
-    <!-- footer -->
+    
     <div class="border-t-2 px-6 py-4 border-gray-200 text-gray-400 text-xs flex justify-between">
 
         <div >
